@@ -14,7 +14,6 @@ def stockpicker(stock_prices)
 end
 
 def get_lowest_day(stock_prices)
-  debugger
   value = stock_prices.reduce do |lowest_value, stock_price|
     if stock_price < lowest_value
       lowest_value = stock_price
