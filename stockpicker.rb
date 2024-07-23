@@ -6,27 +6,32 @@
 #   return Array.new
 # }
 
-def stockpicker(stock_prices)
-  # Initialize the best days arrat
-  best_days = Array.new
-  # Check which day is the lowest
-  lowest_day = get_lowest_day(stock_prices)
-end
 
-def get_lowest_day(stock_prices)
-  value = stock_prices.reduce do |lowest_value, stock_price|
-    if stock_price < lowest_value
-      lowest_value = stock_price
-    else
-      lowest_value = lowest_value
+# Two Value Pair Must Be Profitable
+# Need to transform the array into hashes?
+
+
+# def stockpicker(stock_prices)
+  
+# end
+
+def combinations(stock_prices)
+  # Create a new hash to store the combination of numbers 
+  hash = Hash.new
+  # Iterate over the stock prices over combinations of two
+  stock_prices.combination(2) do |combination| 
+    # Unless the the value of the sell stockprice is less than buy stock price 
+    # and the index of combination
+    unless combination[1] < combination[0] && stock_prices.find_index(combination[1]) > stock_prices.find_index(combination[0]) 
+      hash[combination] = {index:[stock_prices.find_index(combination[0]),stock_prices.find_index(combination[1])]}
+      hash[combination][:prices] = combination[1] - combination[0]
+    else 
+      next
     end
-    lowest_value
   end
-
-  # Get index
-  stock_prices.find_index(value)
+  hash
 end
 
 stock_prices = [17,3,6,9,15,8,6,1,10]
 
-stockpicker(stock_prices)
+puts combinations(stock_prices)
