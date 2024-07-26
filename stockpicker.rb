@@ -1,6 +1,7 @@
 def stockpicker(stock_prices)
   combination_hash = combinations(stock_prices)
-  get_stocks(combination_hash,stock_prices)
+  best_stock = get_stocks(combination_hash,stock_prices)
+  get_index(best_stock,stock_prices)
 end
 
 def combinations(stock_prices)
@@ -21,4 +22,14 @@ def get_stocks(combinations,stock_prices)
   filtered = filtered.flatten
 end
 
+def get_index(best_stock,stock_prices)
+  index = best_stock.reduce(Array.new) do |indices, stock|
+    indices.push(stock_prices.find_index(stock))
+    indices
+  end
+  index
+  debugger
+end
 
+
+stockpicker([17,3,6,9,15,8,6,1,10])
